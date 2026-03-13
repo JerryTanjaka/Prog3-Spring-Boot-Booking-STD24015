@@ -1,24 +1,25 @@
 package hei.booking.controller;
+
 import hei.booking.model.Booking;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class BookingController {
-    private List<Booking> bookingList;
 
+    private List<Booking> bookingList = new ArrayList<>();
 
     @GetMapping("/booking")
     public List<Booking> booking() {
         return bookingList;
     }
+
     @PostMapping("/booking")
-    public ResponseEntity<List<Booking>> addBooking(List<Booking> bookings) {
+    public ResponseEntity<List<Booking>> addBooking(@RequestBody List<Booking> bookings){
 
         Booking invalid = bookings.stream()
                 .filter(b -> b.getRoomNumber() < 1 || b.getRoomNumber() > 9)
